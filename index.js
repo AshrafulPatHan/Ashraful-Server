@@ -53,12 +53,13 @@ app.post('/mail', async(req,res) =>{
 });
 
 // get mail
+
 app.get('/mails',async(req,res)=>{
     try{
         const bodyData = massage.find();
         const result = await bodyData.toArray();
         res.send(result)
-        console.log("mail is display");
+        console.log("clinte mail is get from database");
         
     }catch(error){
         console.error("the data is not get from database because => ", error)
