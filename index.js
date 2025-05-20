@@ -38,17 +38,33 @@ async function run() {
 const DataBase = client.db('Ashraful');
 const massage = DataBase.collection('mail');
 
+// server function
+// post mail
 app.post('/mail', async(req,res) =>{
     const mail = req.body;
     try{
         const result = await massage.insertOne(mail);
         res.send(result);
-        console.log("data is send to database")
+        console.log("data is send to database");
     }catch(error){
         console.error("the massage is not send to database because ->",error);
-        res.status(500).send({massage:"error is coming to insert mail"})
+        res.status(500).send({massage:"error is coming to insert mail"});
+    };
+});
+
+// get mail
+app.get('/mails',async(req,res)=>{
+    try{
+        const bodyData = massage.find();
+        const result = await bodyData.toArray();
+        res.send(result)
+        console.log("mail is display");
+        
+    }catch(error){
+        console.error("the data is not get from database because => ", error)
+        res.status(500).send({massage:"error is coming to get mail data"})
     }
-}) 
+})
 
 
     // Send a ping to confirm a successful connection
